@@ -1,10 +1,10 @@
 import pandas as pd
 from fuzzywuzzy import process
 
-# read the first sheet into a DataFrame
+# reading the 'master' sheet into a DataFrame
 df1 = pd.read_excel('master.xlsx')
 
-# read the second sheet into a DataFrame
+# reading the 'test' sheet into a DataFrame
 df2 = pd.read_excel('test.xlsx')
 
 # create a dictionary mapping Item name to Product ID
@@ -18,6 +18,6 @@ for item_name in df2['Item name']:
 df2['Product ID'] = df2['Item name'].map(id_dict)
 df2 = df2.rename(columns={'Product ID': 'Product ID_Master'})
 
-# write the updated DataFrame to a third sheet
+# write the updated DataFrame to a third sheet called 'Output'
 with pd.ExcelWriter('Output.xlsx') as writer:
     df2.to_excel(writer, sheet_name='Sheet3', index=False)
